@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import { finalize, catchError, map } from "rxjs/operators";
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddWebhookComponent } from "./add-webhook/add-webhook.component";
 import { AddWebhookFormComponent } from "./add-webhook-form/add-webhook-form.component";
@@ -60,6 +61,7 @@ export class WebhookComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userPermissionService: UserPermissionService,
+    private translate: TranslateService,
     private webhookService: WebhookService,
     private messageHandlerService: MessageHandlerService,
     private errorHandler: ErrorHandler,
@@ -118,18 +120,17 @@ export class WebhookComponent implements OnInit {
   }
 
   switchWebhookStatus(enabled = false) { 
-    const title = enabled ? 'ENABLED_WEBHOOK_TITLE' : 'DISABLED_WEBHOOK_TITLE';
-    const summary = enabled ? 'ENABLED_WEBHOOK_SUMMARY' : 'DISABLED_WEBHOOK_SUMMARY';
-    const project = { projectName: this.projectName };
+    let content = '';
+    this.translate.get(enabled ? 'WEBHOOK.ENABLED_WEBHOOK_SUMMARY' : 'WEBHOOK.DISABLED_WEBHOOK_SUMMARY').subscribe((res) => content = res + this.projectName);
     let message = new ConfirmationMessage(
-      `WEBHOOK.${title}`,
-      `WEBHOOK.${summary}`,
-      this.projectName,
-      project,
+      enabled ? 'WEBHOOK.ENABLED_WEBHOOK_TITLE' : 'WEBHOOK.DISABLED_WEBHOOK_TITLE',
+      content,
+      '',
+      {},
       ConfirmationTargets.WEBHOOK,
-      // enabled ? ConfirmationButtons.ENABLE_CANCEL : ConfirmationButtons.DISABLE_CANCEL);
-      ConfirmationButtons.SWITCH_CANCEL);
-      this.confirmationDialogComponent.open(message);
+      enabled ? ConfirmationButtons.ENABLE_CANCEL : ConfirmationButtons.DISABLE_CANCEL
+    );
+    this.confirmationDialogComponent.open(message);
   }
 
   confirmSwitch(message: ConfirmationAcknowledgement) {

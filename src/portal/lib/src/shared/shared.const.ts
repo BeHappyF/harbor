@@ -63,7 +63,7 @@ export const enum ConfirmationState {
 }
 
 export const enum ConfirmationButtons {
-  CONFIRM_CANCEL, YES_NO, DELETE_CANCEL, CLOSE, REPLICATE_CANCEL, STOP_CANCEL
+  CONFIRM_CANCEL, YES_NO, DELETE_CANCEL, CLOSE, ENABLE_CANCEL, DISABLE_CANCEL, REPLICATE_CANCEL, STOP_CANCEL
 }
 
 export const LabelColor = [

@@ -1,3 +1,4 @@
+import { WebhookEventTypes } from '../../shared/shared.const';
 // {
 //   "id": 8,
 //   "name": "pullpushdeletehook",
@@ -10,7 +11,7 @@
 //           "attachment": ""
 //       }
 //   ],
-//   "hook_types": [
+//   "event_types": [
 //       "pushImage",
 //       "pullImage",
 //       "deleteImage"
@@ -27,7 +28,7 @@ export class Webhook {
   project_id: number;
   description: string;
   targets: Target[];
-  hook_types: string[];
+  event_types: WebhookEventTypes[];
   creator: string;
   creation_time: Date;
   update_time: Date;
@@ -38,7 +39,7 @@ export class Target {
   type: string;
   address: string;
   attachment: string;
-  secret: string;
+  auth_header: string;
   skip_cert_verify: boolean;
 
   constructor () {
@@ -49,14 +50,14 @@ export class Target {
 }
 
 // {
-//   "hook_type": "pushImage",
+//   "event_type": "pushImage",
 //   "enabled": true,
 //   "creation_time": "2019-07-09T09:20:16.87695Z",
 //   "last_trigger_time": "0001-01-01T00:00:00Z"
 // }
 export class LastTrigger {
   enabled: boolean;
-  hook_type: string;
+  event_type: string;
   creation_time: Date;
   last_trigger_time: Date;
 }

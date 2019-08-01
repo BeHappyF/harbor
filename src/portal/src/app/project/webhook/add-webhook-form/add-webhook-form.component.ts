@@ -13,6 +13,7 @@ import { NgForm } from "@angular/forms";
 import {ClrLoadingState} from "@clr/angular";
 import { finalize } from "rxjs/operators";
 import { WebhookService } from "../webhook.service";
+import { WebhookEventTypes } from '../../../shared/shared.const';
 import { MessageHandlerService } from "../../../shared/message-handler/message-handler.service";
 
 @Component({
@@ -87,7 +88,7 @@ export class AddWebhookFormComponent implements OnInit, OnChanges {
       ? this.webhookService.editWebhook(this.projectId, this.webhook.id, Object.assign(this.webhook, { targets: [this.webhookTarget] }))
       : this.webhookService.createWebhook(this.projectId, {
         targets: [this.webhookTarget],
-        hook_types: ["downloadChart", "deleteChart", "uploadChart", "deleteImage", "pullImage", "pushImage", "scanningFailed", "scanningCompleted"],
+        event_types: Object.keys(WebhookEventTypes).map(key => WebhookEventTypes[key]),
         enabled: true,
       }); 
     rx.pipe(finalize(() => (this.submitting = false)))
