@@ -40,7 +40,9 @@ export class AddWebhookComponent implements OnInit {
   }
 
   closeModal(isModified: boolean): void {
-    isModified && this.modify.emit(true);
+    if (isModified) {
+      this.modify.emit(true);
+    }
     this.isOpen = false;
   }
 

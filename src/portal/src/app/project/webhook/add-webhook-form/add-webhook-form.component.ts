@@ -47,11 +47,10 @@ export class AddWebhookFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['isOpen'] && changes['isOpen'].currentValue) { 
+    if (changes['isOpen'] && changes['isOpen'].currentValue) {
       Object.assign(this.webhookTarget, this.webhook.targets[0]);
     }
   }
@@ -84,13 +83,13 @@ export class AddWebhookFormComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    const rx = this.isModify 
+    const rx = this.isModify
       ? this.webhookService.editWebhook(this.projectId, this.webhook.id, Object.assign(this.webhook, { targets: [this.webhookTarget] }))
       : this.webhookService.createWebhook(this.projectId, {
         targets: [this.webhookTarget],
         event_types: Object.keys(WebhookEventTypes).map(key => WebhookEventTypes[key]),
         enabled: true,
-      }); 
+      });
     rx.pipe(finalize(() => (this.submitting = false)))
       .subscribe(
         response => {

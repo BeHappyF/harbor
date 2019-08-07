@@ -45,7 +45,7 @@ export class WebhookComponent implements OnInit {
   addWebhookComponent: AddWebhookComponent;
   @ViewChild(AddWebhookFormComponent)
   addWebhookFormComponent: AddWebhookFormComponent;
-  @ViewChild("confirmationDialogComponent") 
+  @ViewChild("confirmationDialogComponent")
   confirmationDialogComponent: ConfirmationDialogComponent;
   webhook: Webhook;
   endpoint: string = '';
@@ -74,7 +74,6 @@ export class WebhookComponent implements OnInit {
       let project = <Project>(resolverData["projectResolver"]);
       this.projectName = project.name;
     }
-    
     this.getData(this.projectId);
   }
 
@@ -104,7 +103,7 @@ export class WebhookComponent implements OnInit {
       .listWebhook(projectId)
       .subscribe(
         response => {
-          if(response.length) {
+          if (response.length) {
             this.webhook = response[0];
             this.endpoint = this.webhook.targets[0].address;
             this.isEnabled = this.webhook.enabled;
@@ -119,9 +118,13 @@ export class WebhookComponent implements OnInit {
       );
   }
 
-  switchWebhookStatus(enabled = false) { 
+  switchWebhookStatus(enabled = false) {
     let content = '';
-    this.translate.get(enabled ? 'WEBHOOK.ENABLED_WEBHOOK_SUMMARY' : 'WEBHOOK.DISABLED_WEBHOOK_SUMMARY').subscribe((res) => content = res + this.projectName);
+    this.translate.get(
+      enabled
+      ? 'WEBHOOK.ENABLED_WEBHOOK_SUMMARY'
+      : 'WEBHOOK.DISABLED_WEBHOOK_SUMMARY'
+    ).subscribe((res) => content = res + this.projectName);
     let message = new ConfirmationMessage(
       enabled ? 'WEBHOOK.ENABLED_WEBHOOK_TITLE' : 'WEBHOOK.DISABLED_WEBHOOK_TITLE',
       content,

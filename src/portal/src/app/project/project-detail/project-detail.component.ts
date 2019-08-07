@@ -88,7 +88,6 @@ export class ProjectDetailComponent implements OnInit {
       [this.hasLogListPermission, this.hasConfigurationListPermission, this.hasMemberListPermission
         , this.hasLabelListPermission, this.hasRepositoryListPermission, this.hasHelmChartsListPermission, this.hasRobotListPermission
         , this.hasWebhookListPermission, this.hasLabelCreatePermission] = Rules;
-        
     }, error => this.errorHandler.error(error));
   }
 

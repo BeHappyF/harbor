@@ -95,7 +95,7 @@ export class SystemSettingsComponent implements OnChanges, OnInit {
     setRepoReadOnlyValue($event: any) {
         this.systemSettings.read_only.value = $event;
     }
-    
+
     setWebhookNotificationEnabledValue($event: any) {
         this.systemSettings.notification_enable.value = $event;
     }
