@@ -11,19 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import { finalize, catchError, map } from "rxjs/operators";
+import { finalize } from "rxjs/operators";
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddWebhookComponent } from "./add-webhook/add-webhook.component";
 import { AddWebhookFormComponent } from "./add-webhook-form/add-webhook-form.component";
-import { ActivatedRoute, Router } from '@angular/router';
-import { SessionService } from '../../shared/session.service';
-import { SessionUser } from '../../shared/session-user';
-import { Webhook, LastTrigger, Target } from './webhook';
+import { ActivatedRoute } from '@angular/router';
+import { Webhook, LastTrigger } from './webhook';
 import { WebhookService } from './webhook.service';
 import { MessageHandlerService } from "../../shared/message-handler/message-handler.service";
 import { Project } from '../project';
-import { forkJoin } from 'rxjs';
 import {
   ConfirmationTargets,
   ConfirmationState,
@@ -33,7 +30,6 @@ import {
 import { ConfirmationMessage } from "../../shared/confirmation-dialog/confirmation-message";
 import { ConfirmationAcknowledgement } from "../../shared/confirmation-dialog/confirmation-state-message";
 import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
-import { operateChanges, UserPermissionService, USERSTATICPERMISSION, ErrorHandler } from "@harbor/ui";
 
 @Component({
   templateUrl: './webhook.component.html',
@@ -59,13 +55,9 @@ export class WebhookComponent implements OnInit {
   hasProjectAdminRole: boolean;
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private userPermissionService: UserPermissionService,
     private translate: TranslateService,
     private webhookService: WebhookService,
-    private messageHandlerService: MessageHandlerService,
-    private errorHandler: ErrorHandler,
-    private session: SessionService) {}
+    private messageHandlerService: MessageHandlerService) {}
 
   ngOnInit() {
     this.projectId = +this.route.snapshot.parent.params['id'];
