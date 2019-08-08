@@ -24,8 +24,6 @@ import { MessageHandlerService } from "../../../shared/message-handler/message-h
 export class AddWebhookFormComponent implements OnInit, OnChanges {
   closable: boolean = true;
   staticBackdrop: boolean = true;
-  isCheckValid: boolean = false;
-  isEndpointValid: boolean = false;
   checking: boolean = false;
   checkBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   webhookForm: NgForm;
@@ -67,11 +65,9 @@ export class AddWebhookFormComponent implements OnInit, OnChanges {
       .subscribe(
         response => {
           this.checkBtnState = ClrLoadingState.SUCCESS;
-          this.isCheckValid = true;
         },
         error => {
           this.checkBtnState = ClrLoadingState.DEFAULT;
-          this.isCheckValid = false;
           this.messageHandlerService.handleError(error);
         }
       );

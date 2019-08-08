@@ -52,7 +52,6 @@ export class WebhookComponent implements OnInit {
   showCreate: boolean = false;
   projectId: number;
   projectName: string;
-  hasProjectAdminRole: boolean;
   constructor(
     private route: ActivatedRoute,
     private translate: TranslateService,
